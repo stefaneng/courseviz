@@ -10,19 +10,40 @@
 	    .enter().append("g")
 	    .attr("transform" , function(d) { return "translate(" + d * 60 + ",0)"});
 
+    var circleMouseover = function() {
+	d3.select("body")
+	    .append("div")
+	    .attr("class", "tooltip")
+	    .text("Hello world!");
+
+	d3.select(this)
+	    .transition()
+	    .style("opacity", 0.7);
+    };
+
+    var circleMousemove = function() {
+	d3.select(".tooltip")
+	    .style("left", (d3.event.pageX + 5) + "px")
+	    .style("top", (d3.event.pageY - 35) + "px");
+    };
+
+    var circleMouseout = function() {
+	d3.select(".tooltip")
+	    .remove();
+	d3.select(this)
+	    .transition()
+	    .style("opacity", 0.5);
+    };
+
     circles.append("circle")
 	.attr("r", 30)
-	.on("mouseover", function(d) {
-	    console.log("Mouse over on: " + d);
-	    d3.select(this).style("opacity", 0.6);
-	})
-	.on("mouseout", function(d) {
-	    console.log("Mouse out on: " + d);
-	    d3.select(this).style("opacity", 0.5);
-	});
+	.on("mouseover", circleMouseover)
+	.on("mousemove", circleMousemove)
+	.on("mouseout", circleMouseout);
 
     circles.append("text")
 	.attr("text-anchor", "middle")
 	.attr("dy", "5px")
 	.text(function(d) { return d; });
+
 })();
