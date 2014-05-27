@@ -1,3 +1,6 @@
 circle {
     opacity: 0.50;
+    fill: grey;
+    stroke: black;
+    stroke-width: 2px;
 }

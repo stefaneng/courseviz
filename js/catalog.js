@@ -11,7 +11,15 @@
 	    .attr("transform" , function(d) { return "translate(" + d * 60 + ",0)"});
 
     circles.append("circle")
-	.attr("r", 30);
+	.attr("r", 30)
+	.on("mouseover", function(d) {
+	    console.log("Mouse over on: " + d);
+	    d3.select(this).style("opacity", 0.6);
+	})
+	.on("mouseout", function(d) {
+	    console.log("Mouse out on: " + d);
+	    d3.select(this).style("opacity", 0.5);
+	});
 
     circles.append("text")
 	.attr("text-anchor", "middle")
