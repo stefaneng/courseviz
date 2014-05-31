@@ -1,20 +1,23 @@
 (function() {
     "use strict";
 
+    var data = [1,2,3,4];
+
     var g = d3.select("svg")
 	    .append("g")
               .attr("transform", "translate(90,90)");
 
     var circles = g.selectAll("g")
-	    .data([1,2,3,4,5,6])
+	    .data(data)
 	    .enter().append("g")
 	    .attr("transform" , function(d) { return "translate(" + d * 60 + ",0)"});
 
-    var circleMouseover = function() {
+
+    var circleMouseover = function(d) {
 	d3.select("body")
 	    .append("div")
 	    .attr("class", "tooltip")
-	    .text("Hello world!");
+	    .text("Item number: " + d);
 
 	d3.select(this)
 	    .transition()
