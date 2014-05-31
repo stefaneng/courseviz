@@ -1,8 +1,8 @@
-{
+[{
     "description": "Study of the relation of languages (e.g.,. sets of strings) and machines for processing these languages, with emphasis on classes of languages and corresponding classes of machines. Phrase structure languages and grammar. Types of grammar and classes of languages. Regular languages and finite state automata. Context-free languages and pushdown automata. Unrestricted languages and Turing Machines. Computability models of Turing, Church, Markov and McCarthy. Applications to programming languages, compiler design, and program design and testing.",
     "number": "310",
     "classname": "COMP 310",
     "department": "COMP",
     "prereqs": ["COMP 256/L", "COMP 333"],
     "longname": "Automata, Languages and Computation", "units": "3"
-}
+}]
