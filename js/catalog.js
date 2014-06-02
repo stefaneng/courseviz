@@ -43,18 +43,20 @@
 		.style("opacity", 0.5);
 	};
 
-	var nodes = g.selectAll("circle")
+	var nodes = g.selectAll("g")
 		.data(courses)
-		.enter().append("circle")
-		.attr("r", 25)
-		.on("mouseover", circleMouseover)
-		.on("mousemove", circleMousemove)
-		.on("mouseout", circleMouseout)
+		.enter().append("g")
 		.call(force.drag);
 
+
+	nodes.append("circle")
+	    .attr("r", 25)
+	    .on("mouseover", circleMouseover)
+	    .on("mousemove", circleMousemove)
+	    .on("mouseout", circleMouseout);
+
 	force.on("tick", function() {
-	    nodes.attr("cx", function(d) { return d.x; })
-		.attr("cy", function(d) { return d.y; });
+	    nodes.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 	});
     });
 })();
