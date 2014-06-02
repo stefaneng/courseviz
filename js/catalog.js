@@ -52,7 +52,8 @@
 	    .attr("r", 30)
 	    .on("mouseover", circleMouseover)
 	    .on("mousemove", circleMousemove)
-	    .on("mouseout", circleMouseout);
+	    .on("mouseout", circleMouseout)
+	    .on("mouseup", circleMouseout);
 
 	nodes.append("text")
 	    .attr("text-anchor", "middle")
