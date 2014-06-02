@@ -12,21 +12,26 @@
 
     var force = d3.layout.force()
 	    .charge(-240)
+	    .linkDistance(100)
 	    .size([width, height]);
+
+    var linkData = [{source:0, target:1}];
 
     d3.json("/data/sample_courses.json", function(error, courses) {
 	force.nodes(courses)
+	    .links(linkData)
 	    .start();
+
+	var edges = g.selectAll(".line")
+		.data(linkData).enter()
+		.append("line")
+		.attr("class", "link");
 
 	var circleMouseover = function(d) {
 	    d3.select("body")
 		.append("div")
 		.attr("class", "tooltip")
 		.text(d.description);
-
-	    d3.select(this)
-		.transition()
-		.style("opacity", 0.7);
 	};
 
 	var circleMousemove = function() {
@@ -38,9 +43,6 @@
 	var circleMouseout = function() {
 	    d3.select(".tooltip")
 		.remove();
-	    d3.select(this)
-		.transition()
-		.style("opacity", 0.5);
 	};
 
 	var nodes = g.selectAll("g")
@@ -62,6 +64,11 @@
 
 	force.on("tick", function() {
 	    nodes.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+	    edges.attr("x1", function(d) { return d.source.x; })
+		.attr("y1", function(d) { return d.source.y; })
+		.attr("x2", function(d) { return d.target.x; })
+		.attr("y2", function(d) { return d.target.y; });
 	});
     });
 })();
