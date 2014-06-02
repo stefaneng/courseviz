@@ -48,12 +48,16 @@
 		.enter().append("g")
 		.call(force.drag);
 
-
 	nodes.append("circle")
-	    .attr("r", 25)
+	    .attr("r", 30)
 	    .on("mouseover", circleMouseover)
 	    .on("mousemove", circleMousemove)
 	    .on("mouseout", circleMouseout);
+
+	nodes.append("text")
+	    .attr("text-anchor", "middle")
+	    .attr("dy", "5px")
+	    .text(function(d) { return d.classname; });
 
 	force.on("tick", function() {
 	    nodes.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
