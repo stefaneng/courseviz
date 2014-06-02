@@ -18,13 +18,42 @@
 	force.nodes(courses)
 	    .start();
 
-	var node = g.selectAll("circle")
+	var circleMouseover = function(d) {
+	    d3.select("body")
+		.append("div")
+		.attr("class", "tooltip")
+		.text(d.description);
+
+	    d3.select(this)
+		.transition()
+		.style("opacity", 0.7);
+	};
+
+	var circleMousemove = function() {
+	    d3.select(".tooltip")
+		.style("left", (d3.event.pageX + 5) + "px")
+		.style("top", (d3.event.pageY - 35) + "px");
+	};
+
+	var circleMouseout = function() {
+	    d3.select(".tooltip")
+		.remove();
+	    d3.select(this)
+		.transition()
+		.style("opacity", 0.5);
+	};
+
+	var nodes = g.selectAll("circle")
 		.data(courses)
 		.enter().append("circle")
 		.attr("r", 25)
+		.on("mouseover", circleMouseover)
+		.on("mousemove", circleMousemove)
+		.on("mouseout", circleMouseout)
 		.call(force.drag);
+
 	force.on("tick", function() {
-	    node.attr("cx", function(d) { return d.x; })
+	    nodes.attr("cx", function(d) { return d.x; })
 		.attr("cy", function(d) { return d.y; });
 	});
     });
